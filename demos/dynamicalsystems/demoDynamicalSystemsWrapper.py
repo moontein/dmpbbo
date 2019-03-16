@@ -27,18 +27,21 @@ import matplotlib.pyplot as plt
 import numpy
 import os, sys
 
-lib_path = os.path.abspath('../')
-sys.path.append(lib_path)
-from executeBinary import executeBinary
+# dmpbbo/demos/dynamicalsystems => ../../python/
+# dmpbbo/build_dir_debug/demos/dynamicalsystems => ../../../python
+# dmpbbo/bin => ../python
 
-lib_path = os.path.abspath('../../python/')
-sys.path.append(lib_path)
+for lib_path in ['../python/','../../python/','../../../python/']:
+    sys.path.append(lib_path)
+
+from executeBinary import executeBinary
+from executeBinary import executeBinaryWithDirectory
+
 from dynamicalsystems.dynamicalsystems_plotting import * 
 
 
 
 if __name__=='__main__':
-    executable = "../../bin/demoDynamicalSystems"
     
     # See if input directory was passed
     if (len(sys.argv)<2 or len(sys.argv)>3):
@@ -66,7 +69,7 @@ if __name__=='__main__':
       arguments += " "+demo_label
      
     print("____________________________________________________________________")
-    executeBinary(executable, arguments, True)
+    executeBinaryWithDirectory("../../bin/","demoDynamicalSystems", arguments, True)
     
     figure_number = 1;
     directories = os.listdir(directory) 
